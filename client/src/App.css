@@ -1,0 +1,13 @@
+
+.mb-3{
+    text-align: center;
+}
+.mb-2{
+    text-align: center;
+}
+.mb-1{
+    display:flex;
+    justify-content:center;
+    align-items:center
+
+}
