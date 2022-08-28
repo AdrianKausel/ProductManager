@@ -2,20 +2,14 @@ import React, { useEffect } from "react";
 import Table from 'react-bootstrap/Table'
 import axios from "axios";
 import { useState } from "react";
+import { TbEdit } from 'react-icons/tb';
+import {AiFillDelete} from 'react-icons/ai'
+import { Link } from "react-router-dom";
+
+const ProductTable = ({sendData, deleteFn}) => {
 
 
-const ProductTable = ({sendData}) => {
-
-    const [newData, setNewData] = useState([])
-
-    useEffect(() => {axios.get("http://localhost:8000/api/product/")
-    .then (resp => {
-        setNewData([...resp.data.product])
-        console.log({...resp.data.product})
-    })
-},[])
     
-
     return (
         <React.Fragment>
             <Table>
@@ -23,15 +17,19 @@ const ProductTable = ({sendData}) => {
                     <tr>
                         <th>Product Title</th>
                         <th>Price</th>
-                        <th>Description</th>   
+                        <th>Description</th>
+                        <th> Edit Product</th>   
+                        <th> Delete Product</th>  
                     </tr>
                 </thead>
                 <tbody>
-                    {newData.map((dato,i) => (
+                    {sendData.map((dato,i) => (
                         <tr key={i}>
                         <td>{dato.productTitle}</td>
-                        <td>${dato.price}</td>
+                        <td>{dato.price}</td>
                         <td>{dato.description}</td>
+                        <td><Link to={`/edit/${dato._id}`} ><TbEdit color='green '/></Link></td>
+                        <td><AiFillDelete color='red 'onClick={e => deleteFn(dato)}/></td>
                     </tr>
 
                     ))}
